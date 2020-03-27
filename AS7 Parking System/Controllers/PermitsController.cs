@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AS7_Parking_System.Models;
+using Microsoft.OData.Edm;
 
 namespace AS7_Parking_System.Controllers
 {
@@ -22,7 +23,39 @@ namespace AS7_Parking_System.Controllers
         public async Task<IActionResult> Index()
         {
             var parkingDataBaseContext = _context.Permit.Include(p => p.Vehicle);
+            Fee();
             return View(await parkingDataBaseContext.ToListAsync());
+        }
+
+        public IActionResult Fee()
+        {
+            var permits = _context.Permit.Include(p => p.Vehicle).ToList();
+
+            foreach (var permit in permits)
+            {
+                if (DateTime.Now < permit.PermitEndDate)
+                {
+                    permit.Valid = true;
+                    permit.Fee = 0;
+                    permit.Premium = 0;
+
+                }
+                else if (DateTime.Now > permit.PermitEndDate && DateTime.Now > permit.PermitEndDate.AddDays(10))
+                {
+                    permit.Fee = 200;
+                    permit.Premium = 20;
+                    permit.Valid = false;
+                }
+                else
+                {
+                    permit.Fee = 200;
+                    permit.Premium = 0;
+                    permit.Valid = false;
+                }
+
+            }
+
+            return View();
         }
 
         // GET: Permits/Details/5
