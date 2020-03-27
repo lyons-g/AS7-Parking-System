@@ -24,7 +24,11 @@ namespace AS7_Parking_System.Controllers
         {
             var parkingDataBaseContext = _context.Permit.Include(p => p.Vehicle);
             Fee();
+            await _context.SaveChangesAsync();
+            NumValid();
+            NumLapsed();
             return View(await parkingDataBaseContext.ToListAsync());
+
         }
 
         public IActionResult Fee()
@@ -56,6 +60,36 @@ namespace AS7_Parking_System.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult NumValid()
+        {
+            var Num = _context.Permit.ToList()
+                .Where(v => v.Valid == true);
+            var count = 0;
+
+            foreach (Permit p in Num)
+            {
+                count++;
+            }
+
+            ViewBag.Test = count;
+            return View(Num);
+        }
+
+        public ActionResult NumLapsed()
+        {
+            var Num = _context.Permit.ToList()
+                .Where(v => v.Valid != true);
+            var count = 0;
+
+            foreach (Permit p in Num)
+            {
+                count++;
+            }
+
+            ViewBag.Test2 = count;
+            return View(Num);
         }
 
         // GET: Permits/Details/5
@@ -187,6 +221,24 @@ namespace AS7_Parking_System.Controllers
         private bool PermitExists(int id)
         {
             return _context.Permit.Any(e => e.PermitId == id);
+        }
+
+
+        // GET: Valid Permits
+        public async Task<IActionResult> Valid()
+        {
+            var valid = _context.Permit.Include(p => p.Vehicle)
+                .Where(v => v.Valid == true);
+
+            return View(await valid.ToListAsync());
+        }
+
+        public async Task<IActionResult> Lapsed()
+        {
+            var lapsed = _context.Permit.Include(p => p.Vehicle)
+                .Where(v => v.Valid == false);
+
+            return View(await lapsed.ToListAsync());
         }
     }
 }

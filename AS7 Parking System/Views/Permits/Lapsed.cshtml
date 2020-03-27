@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<AS7_Parking_System.Models.Permit>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lapsed";
 }
 
-<h1>Index</h1>
+<h1>Lapsed</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -61,32 +58,5 @@
             </td>
         </tr>
 }
-        <tr>
-            <td>
-              Total Valid Permits: 
-            </td>
-            <td>
-                @ViewBag.Test
-            </td>
-        </tr>
-        <tr>
-            <td>
-             Total Lapsed Permits:
-            </td>
-            <td>
-                @ViewBag.Test2
-            </td>
-        </tr>
     </tbody>
 </table>
-
-<div class="text-center">
-<h3>
-    <a asp-controller="Permits" asp-action="Valid"> Valid permits</a>
-</h3>
-<h3>
-    <a asp-controller="Permits" asp-action="Lapsed"> Lapsed permits</a>
-</h3>
-    </div>
-
-
