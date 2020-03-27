@@ -28,7 +28,6 @@ namespace AS7_Parking_System.Controllers
             NumValid();
             NumLapsed();
             return View(await parkingDataBaseContext.ToListAsync());
-
         }
 
         public IActionResult Fee()
@@ -56,9 +55,7 @@ namespace AS7_Parking_System.Controllers
                     permit.Premium = 0;
                     permit.Valid = false;
                 }
-
             }
-
             return View();
         }
 
