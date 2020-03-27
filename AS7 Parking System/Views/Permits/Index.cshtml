@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AS7_Parking_System.Models.Permit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PermitEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Premium)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermitStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermitEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Premium)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PermitId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PermitId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PermitId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
