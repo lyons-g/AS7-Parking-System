@@ -23,7 +23,7 @@ namespace AS7_Parking_System.Controllers
         public async Task<IActionResult> Index()
         {
             var parkingDataBaseContext = _context.Permit.Include(p => p.Vehicle);
-            Fee();
+                Fee();
             await _context.SaveChangesAsync();
             NumValid();
             NumLapsed();

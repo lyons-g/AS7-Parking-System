@@ -30,7 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Vehicle)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.Owner)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +55,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vehicle.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.Owner)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PermitId">Edit</a> |
